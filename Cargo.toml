@@ -26,7 +26,9 @@ gen_ops = "0.3.0"
 [dev-dependencies]
 tests_common = { path = "tests_common" }
 syntactic-for = "0.1.1"
-criterion = { version = "0.5.1", features = ["html_reports"] }
+# criterion = { version = "0.5.1", features = ["html_reports"] }
+# was criterion = { version = "0.5.1", features = ["html_reports"] }
+criterion = { version = "0.5.1", features = ["html_reports", "plotters", "cargo_bench_support"], default-features = false }
 trybuild = "1.0.53"
 thousands = "0.2.0"
 quickcheck = "1.0.3"
@@ -39,7 +41,7 @@ thiserror = "1.0"
 rand = "0.8.4"
 
 
-# Declare a benchmark called ""bench" without the standard benchmarking harness. 
+# Declare a benchmark called ""bench" without the standard benchmarking harness.
 [[bench]]
 name = "bench"
 harness = false
@@ -47,3 +49,6 @@ harness = false
 # TODO Rule: for running profiling
 # [profile.release]
 # debug = true
+
+[target.'cfg(not(target_arch = "wasm32"))'.dev-dependencies]
+criterion = { version = "0.5.1", features = ["rayon"] }
